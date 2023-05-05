@@ -1,0 +1,138 @@
+Ex A:
+
+tutorial> use employees
+//'use' command to create a new database
+
+employees> show dbs
+//'show dbs' is a command that lets you see all the databases in the collection
+
+Ex B:
+
+employees> use temporary
+//opens new database 
+
+temporary> db.createCollection('test');
+//creates new collection
+
+temporary> show collections
+temporary> show dbs
+//command for showing collections and dbs 
+
+employees> db.createCollection('em');
+employees> db.createCollection('executives');
+employees> db.createCollection('it');
+employees> db.createCollection('clerks');
+//creates new collections for each department
+
+employees> show collections
+//shows all collections
+
+
+Ex C:
+
+db.executives.insertOne({id:21,name:"Spence Tork",salary:135000})
+db.it.insertOne({id:50,name:"Freddy Peralta",salary:100000})
+db.clerks.insertOne({id:100,name:"Akiko Ogasawara",salary:50000})
+//inserts document data into collections
+
+employees> db.executives.find()
+employees> db.it.find()
+employees> db.clerks.find()
+//finds data per collection
+
+
+Ex D:
+
+db.it.insertOne({
+    employeeid: 1187,
+    name: "John Steight",
+    salary: 75000
+})
+db.it.insertOne({
+    employeeid: 2455,
+    name: "Syed",
+    salary: 90000
+})
+db.it.insertOne({
+    employeeid: 24113,
+    name: "Wright John",
+    salary: 65000
+})
+//code inserts from instructions
+
+db.it.find({
+    employeeid:2455
+})
+db.it.find({
+    employeeid:1187
+})
+//find employee based on id
+
+db.it.find({
+    name:'Syed'
+})
+db.it.find({
+    name:'John Steight'
+})
+//find employee based on name
+
+db.it.find({name : {$regex: "^John" }}).forEach(printjson)
+//find employee where the name starts with John
+
+db.it.find({name : {$regex: "John" }}).forEach(printjson)
+//find employee where the name contains John
+
+
+Ex E:
+
+mongoimport --db employees --collection zips --file zips.json;
+//import file from instructions (used cmd)
+
+db.zips.find({
+    "pop": {
+        $lt: 1500
+    }
+})
+//finds all places in zips where population is less than 1500
+
+db.zips.find({
+    "city": "CHESTER"
+})
+//finds all places in zips where city is CHESTER
+
+db.zips.find({
+    "loc": {
+        $all: [-84.38570799999999, 45.015207]
+    }
+})
+//array operator finds city at geographic location
+
+db.zips.find({
+    $or: [
+    {
+        "city": "WARREN"
+    },
+    {
+        "loc":{
+            $all:[-80.76424299999999, 41.231819]
+        }
+    }
+    ]
+})
+//logical operator finds places that meet either query
+
+
+Ex F:
+
+db.it.find( { $where: function() {
+   return (this.salary > 75000)
+} } );
+//finds employees in it who make more than 75000
+
+db.it.find( { $where: function() {
+   return (this.name.includes("John"))
+} } );
+//finds employee where the name contains John
+
+
+Ex G:
