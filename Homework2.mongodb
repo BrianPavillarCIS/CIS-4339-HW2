@@ -133,6 +133,14 @@ db.it.find( { $where: function() {
    return (this.name.includes("John"))
 } } );
 //finds employee where the name contains John
+//from https://www.w3schools.com/jsref/jsref_includes.asp
 
 
 Ex G:
+
+db.it.find({},{
+    _id:false,
+    name: true,
+    salary:true
+    })
+//returns employee fields but only shows values that are true

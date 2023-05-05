@@ -674,3 +674,18 @@ employees> db.it.find( { $where: function() {
     salary: 65000
   }
 ]
+
+
+Ex F:
+
+employees> db.it.find({},{
+...     _id:false,
+...     name: true,
+...     salary:true
+...     })
+[
+  { name: 'Freddy Peralta', salary: 100000 },
+  { name: 'John Steight', salary: 75000 },
+  { name: 'Syed', salary: 90000 },
+  { name: 'Wright John', salary: 65000 }
+]
